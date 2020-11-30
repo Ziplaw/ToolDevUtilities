@@ -5,12 +5,10 @@ using UnityEngine;
 public class CreateNewScriptClassFromCustomTemplate
 {
     [MenuItem("CONTEXT/MonoBehaviour/Create Editor Script")]
-    public static void CreateScriptFromTemplate(MenuCommand cmd)
+    public static void CreateEditorScript(MenuCommand cmd)
     {
         var o = Resources.Load("Templates/NewEditorScript.cs");
-        // Debug.Log(o);
         var path = AssetDatabase.GetAssetPath(o);
-        // Debug.Log(path);
 
         
         if (AssetDatabase.IsValidFolder("Assets/Editor"))
@@ -25,4 +23,11 @@ public class CreateNewScriptClassFromCustomTemplate
                 $"Assets/Editor/{cmd.context.GetType().ToString()}.cs");
         }
     }
+    
+    [MenuItem("Assets/Create/Scripts/Create ScriptableObject Script",false,50)]
+    public static void CreateScriptableObject()
+    {
+        var o = Resources.Load("Templates/NewScriptableObjectScript.cs");
+        var path = AssetDatabase.GetAssetPath(o);
+        ProjectWindowUtil.CreateScriptAssetFromTemplateFile(path,$"NewScriptableObjectScript.cs"); }
 }
