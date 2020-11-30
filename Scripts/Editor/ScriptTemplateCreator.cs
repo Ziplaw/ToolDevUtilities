@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CreateNewScriptClassFromCustomTemplate
 {
-    private const string pathToYourScriptTemplate = "Assets/ToolCreationUtilities/Templates/NewEditorScript.cs.txt";
+    private const string pathToYourScriptTemplate = "Packages/com.ziplaw.tooldevutilities/Scripts/Editor/Templates/NewEditorScript.cs.txt";
  
     [MenuItem("CONTEXT/MonoBehaviour/Create Editor Script")]
     public static void CreateScriptFromTemplate(MenuCommand cmd)
