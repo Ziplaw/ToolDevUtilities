@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class CreateNewScriptClassFromCustomTemplate
 {
-    
-    // private const string pathToYourScriptTemplate = "Templates/NewEditorScript.cs.txt";
-
-
     [MenuItem("CONTEXT/MonoBehaviour/Create Editor Script")]
     public static void CreateScriptFromTemplate(MenuCommand cmd)
     {
