@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class CreateNewScriptClassFromCustomTemplate
 {
-    private const string pathToYourScriptTemplate = "Packages/com.ziplaw.tooldevutilities/Scripts/Editor/Templates/NewEditorScript.cs.txt";
- 
+    
+    // private const string pathToYourScriptTemplate = "Templates/NewEditorScript.cs.txt";
+
+
     [MenuItem("CONTEXT/MonoBehaviour/Create Editor Script")]
     public static void CreateScriptFromTemplate(MenuCommand cmd)
     {
+        var o = Resources.Load("Templates/NewEditorScript.cs");
+        // Debug.Log(o);
+        var path = AssetDatabase.GetAssetPath(o);
+        // Debug.Log(path);
+
+        
         if (AssetDatabase.IsValidFolder("Assets/Editor"))
         {
-            ProjectWindowUtil.CreateScriptAssetFromTemplateFile(pathToYourScriptTemplate,
+            ProjectWindowUtil.CreateScriptAssetFromTemplateFile(path,
                 $"Assets/Editor/{cmd.context.GetType().ToString()}.cs");
         }
         else
         {
             AssetDatabase.CreateFolder("Assets", "Editor");
-            ProjectWindowUtil.CreateScriptAssetFromTemplateFile(pathToYourScriptTemplate,
+            ProjectWindowUtil.CreateScriptAssetFromTemplateFile(path,
                 $"Assets/Editor/{cmd.context.GetType().ToString()}.cs");
         }
     }
