@@ -1,26 +1,32 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using UnityEditor;
 using UnityEngine;
 
 public class CreateNewScriptClassFromCustomTemplate
 {
-    [MenuItem("CONTEXT/MonoBehaviour/Create Editor Script")]
-    public static void CreateEditorScript(MenuCommand cmd)
+    [MenuItem("Assets/Create Editor Script")]
+    public static void CreateEditorScript()
     {
         var o = Resources.Load("Templates/NewEditorScript.cs");
         var path = AssetDatabase.GetAssetPath(o);
-
+        var assetPath = AssetDatabase.GetAssetPath (Selection.activeObject);
+        int indexToTrim = new string(assetPath.Reverse().ToArray()).IndexOf('/', 0, assetPath.Length);
+        var trimmedAssetPath = assetPath.Remove(assetPath.Length - indexToTrim -1);
+        var className = new string(new string(assetPath.Reverse().ToArray()).Remove(indexToTrim).Reverse().ToArray());
         
-        if (AssetDatabase.IsValidFolder("Assets/Editor"))
+        
+        if (AssetDatabase.IsValidFolder($"{trimmedAssetPath}/Editor"))
         {
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(path,
-                $"Assets/Editor/{cmd.context.GetType().ToString()}.cs");
+                $"{trimmedAssetPath}/Editor/{className}");
         }
         else
         {
-            AssetDatabase.CreateFolder("Assets", "Editor");
+            AssetDatabase.CreateFolder(trimmedAssetPath, "Editor");
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(path,
-                $"Assets/Editor/{cmd.context.GetType().ToString()}.cs");
+                $"{trimmedAssetPath}/Editor/{className}");
         }
     }
     
